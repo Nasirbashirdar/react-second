@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import Header from "./components/Header";
 import CoreConcept from "./components/CoreConcept";
-import { CORE_CONCEPTS as coreConcepts } from "./data";
+import { CORE_CONCEPTS } from "./data";
 import TabButton from "./components/TabButton";
 import { EXAMPLES } from "./data_with_examples.js";
 function App() {
@@ -17,21 +17,38 @@ function App() {
       <main id="core-concepts">
         <h2>Core Concepts</h2>
         <ul>
-          <CoreConcept {...coreConcepts[0]} />
-          <CoreConcept {...coreConcepts[1]} />
-          <CoreConcept {...coreConcepts[2]} />
-          <CoreConcept {...coreConcepts[3]} />
+          {CORE_CONCEPTS.map((item) => (
+            <CoreConcept key={item.title} {...item} />
+          ))}
         </ul>
       </main>
       <section id="examples">
         <h2>Examples</h2>
         <menu>
-          <TabButton onSelect={() => handleSelect("components")}>
+          <TabButton
+            isSelected={selectedTopic === "components"}
+            onSelect={() => handleSelect("components")}
+          >
             Components
           </TabButton>
-          <TabButton onSelect={() => handleSelect("jsx")}>JSX</TabButton>
-          <TabButton onSelect={() => handleSelect("props")}>Props</TabButton>
-          <TabButton onSelect={() => handleSelect("state")}>State</TabButton>
+          <TabButton
+            isSelected={selectedTopic === "jsx"}
+            onSelect={() => handleSelect("jsx")}
+          >
+            JSX
+          </TabButton>
+          <TabButton
+            isSelected={selectedTopic === "props"}
+            onSelect={() => handleSelect("props")}
+          >
+            Props
+          </TabButton>
+          <TabButton
+            isSelected={selectedTopic === "state"}
+            onSelect={() => handleSelect("state")}
+          >
+            State
+          </TabButton>
         </menu>
         {!selectedTopic ? (
           <p>Please select a topic</p>
